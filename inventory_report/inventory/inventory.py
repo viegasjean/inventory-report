@@ -10,17 +10,19 @@ from inventory_report.reports.simple_report import SimpleReport
 class Inventory():
     @classmethod
     def import_data(cls, path: str, tipo: str):
-        arquivo, extensao = path.split('.')
-        match extensao:
-            case "csv":
-                produtos = CsvImporter.import_data(path)
-            case "json":
-                produtos = JsonImporter.import_data(path)
-            case "xml":
-                produtos = XmlImporter.import_data(path)
-            case _:
-                raise ValueError(f"o arquivo {arquivo}.{extensao} é invalido")
+        produtos = cls.read_file(path)
         if tipo == 'simples':
             return SimpleReport.generate(produtos)
         if tipo == 'completo':
             return CompleteReport.generate(produtos)
+
+    @classmethod
+    def read_file(cls, path):
+        _, extensao = path.split('.')
+        if extensao == "csv":
+            return CsvImporter.import_data(path)
+        if extensao == "json":
+            return JsonImporter.import_data(path)
+        if extensao == "xml":
+            return XmlImporter.import_data(path)
+        raise ValueError("Unknown extension")
