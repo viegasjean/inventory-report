@@ -8,14 +8,13 @@ from inventory_report.reports.simple_report import SimpleReport
 class Inventory:
     @classmethod
     def read_file(cls, path):
-        _, extensao = path.split(".")
+        arquivo, extensao = path.split(".")
         if extensao == "csv":
             return CsvImporter.import_data(path)
         if extensao == "json":
             return JsonImporter.import_data(path)
         if extensao == "xml":
             return XmlImporter.import_data(path)
-        raise ValueError("Unknown extension")
 
     @classmethod
     def import_data(cls, path: str, tipo: str):
