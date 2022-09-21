@@ -3,8 +3,8 @@ from datetime import datetime
 
 
 class SimpleReport:
-    @staticmethod
-    def generate(produtos):
+    @classmethod
+    def generate(cls, produtos):
         produtos_na_validade = [
             produto
             for produto in produtos
