@@ -4,6 +4,7 @@ from inventory_report.reports.simple_report import SimpleReport
 from inventory_report.importer.importer import Importer
 from inventory_report.inventory.inventory_iterator import InventoryIterator
 
+
 class InventoryRefactor(Iterable):
     def __init__(self, importer: Importer):
         self.importer = importer
@@ -14,4 +15,3 @@ class InventoryRefactor(Iterable):
 
     def __iter__(self):
         return InventoryIterator(self.data)
-
